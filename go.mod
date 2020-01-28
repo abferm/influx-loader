@@ -1,4 +1,4 @@
-module influx-loader
+module github.com/abferm/influx-loader
 
 go 1.12
 
