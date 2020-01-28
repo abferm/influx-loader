@@ -5,6 +5,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"runtime/debug"
 	"strings"
 
 	"github.com/urfave/cli"
@@ -17,6 +18,10 @@ func main() {
 	app.Name = "influx-loader"
 	app.Usage = "Uploads various log files to InfluxDB via telegraf"
 	app.Commands = []cli.Command{mooshimeter, metabase}
+	buildInfo, ok := debug.ReadBuildInfo()
+	if ok {
+		app.Version = buildInfo.Main.Version
+	}
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "file,f",
