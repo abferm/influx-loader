@@ -30,7 +30,7 @@ func main() {
 		},
 		cli.StringSliceFlag{
 			Name:  "tag,t",
-			Usage: "Tag [key:value]",
+			Usage: "Add tag to metrics, may be specified more than once to add multiple tags [key:value]",
 		},
 		cli.BoolFlag{
 			Name:  "debug",

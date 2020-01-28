@@ -24,7 +24,7 @@ COMMANDS:
 GLOBAL OPTIONS:
    --file value, -f value  Path to log file (default: "./log.csv")
    --telegraf value        telegraf address [host:port] (default: "localhost:8094")
-   --tag value, -t value   Tag [key:value]
+   --tag value, -t value   Add tag to metrics, may be specified more than once to add multiple tags [key:value]
    --debug                 Print metrics to screen rather than sending to telegraf
    --help, -h              show help
    --version, -v           print the version
