@@ -11,6 +11,10 @@ type Entry struct {
 	Fields    map[string]float64
 }
 
+func (e *Entry) Shift(shift time.Duration) {
+	e.Timestamp = e.Timestamp.Add(shift)
+}
+
 func (e Entry) Telegraf(name string, tags map[string]string) telegraf.Measurement {
 	m := telegraf.NewMeasurement(name)
 	m.SetTime(e.Timestamp)

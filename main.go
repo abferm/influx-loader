@@ -37,6 +37,11 @@ func main() {
 			Name:  "tag,t",
 			Usage: "Add tag to metrics, may be specified more than once to add multiple tags [key:value]",
 		},
+		cli.DurationFlag{
+			Name:  "shift,s",
+			Usage: "Shift points by duration",
+			Value: 0,
+		},
 		cli.BoolFlag{
 			Name:  "debug",
 			Usage: "Print metrics to screen rather than sending to telegraf",
@@ -97,6 +102,7 @@ var metabase = cli.Command{
 
 var upload = func(ctx *cli.Context) error {
 	metricName := ctx.String("metric")
+	shift := ctx.GlobalDuration("shift")
 	tags, err := toTags(ctx.GlobalStringSlice("tag"))
 	if err != nil {
 		return err
@@ -120,6 +126,8 @@ var upload = func(ctx *cli.Context) error {
 			}
 			return err
 		}
+		// shift entry time
+		entry.Shift(shift)
 		_, err := fmt.Fprintln(conn, entry.Telegraf(metricName, tags).ToLineProtocal())
 		if err != nil {
 			return err
